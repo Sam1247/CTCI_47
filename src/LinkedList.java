@@ -77,12 +77,12 @@ public class LinkedList {
 		public int value = 0;
 	}
 
-	public Node kthToLastRec (Node head, int k) {
+	public Node kthToLastRec(Node head, int k) {
 		Index idx = new Index();
 		return kthToLast(head, k, idx);
 	}
 
-	private Node kthToLast (Node head, int k, Index idx) {
+	private Node kthToLast(Node head, int k, Index idx) {
 		if (head == null) {
 			return null;
 		}
@@ -97,7 +97,7 @@ public class LinkedList {
 	// return the kth node from last element "Iterative"
 	//o(n) time o(1) space
 	// runner approach
-	public Node kthToLastItr (Node head, int k) {
+	public Node kthToLastItr(Node head, int k) {
 		Node p1 = head;
 		Node p2 = head;
 		for (int i = 0; i < k; i++) {
@@ -112,10 +112,6 @@ public class LinkedList {
 	}
 
 	// 2.3 Delete Middle Node nice problem
-
-
-
-
 
 
 }
