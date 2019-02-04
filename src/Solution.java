@@ -1,18 +1,20 @@
-import java.util.HashSet;
-import java.util.Set;
-
-public class Solution {
-	public boolean hasCycle(ListNode head) {
-
-		Set<ListNode> hash = new HashSet<>();
-		while (head != null) {
-			if (hash.contains(head)) {
-				return true;
-			} else {
-				hash.add(head);
-				head = head.next;
+class Solution {
+	public ListNode removeElements(ListNode head, int val) {
+		if (head == null) return null;
+		while (head.val == val) {
+			head = head.next;
+			if (head == null) {
+				return null;
 			}
 		}
-		return false;
+		ListNode current = head;
+		while (current.next != null) {
+			if (current.next.val == val) {
+				current.next = current.next.next;
+			} else {
+				current = current.next;
+			}
+		}
+		return head;
 	}
 }
