@@ -1,18 +1,13 @@
-import java.util.ArrayList;
-
 class Solution {
-	public boolean isPalindrome(ListNode head) {
-		ArrayList<ListNode> arr = new ArrayList<>();
-		ListNode current = head;
-		while (current != null) {
-			arr.add(current);
-			current = current.next;
+	public ListNode reverseList(ListNode head) {
+		ListNode prev = null;
+		ListNode curr = head;
+		while (curr != null) {
+			ListNode nextTemp = curr.next;
+			curr.next = prev;
+			prev = curr;
+			curr = nextTemp;
 		}
-		for (int i = 0; i < arr.size()/2; ++i) {
-			if (arr.get(i).val != arr.get(arr.size() - 1 - i).val) {
-				return false;
-			}
-		}
-		return true;
+		return prev;
 	}
 }
