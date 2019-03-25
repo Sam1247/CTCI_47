@@ -21,3 +21,17 @@ class Solution {
 		}
 	}
 }
+//class Solution {
+//	private int minv = Integer.MAX_VALUE;
+//	private Integer prev = null;
+//	public int getMinimumDifference(TreeNode root) {
+//		if(root == null) return minv;
+//		getMinimumDifference(root.left);
+//		if(prev != null){
+//			minv = Math.min(root.val - prev, minv);
+//		}
+//		prev = root.val;
+//		getMinimumDifference(root.right);
+//		return minv;
+//	}
+//}
