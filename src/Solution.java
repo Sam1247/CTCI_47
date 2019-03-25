@@ -1,33 +1,23 @@
-public class Solution {
-	public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
-		if (headA == null || headB == null) return null;
-		int l1 = 0, l2 = 0;
-		ListNode current1 = headA;
-		ListNode current2 = headB;
-		while (current1 != null) {
-			l1++;
-			current1 = current1.next;
-		}
-		while (current2 != null) {
-			l2++;
-			current2 = current2.next;
-		}
-		current1 = headA;
-		current2 = headB;
-		if (l1 > l2) {
-			for (int i = 0; i <(l1-l2); ++i) {
-				current1 = current1.next;
-			}
-		} else {
-			for (int i = 0; i <(l2-l1); ++i) {
-				current2 = current2.next;
+import java.util.ArrayList;
+
+class Solution {
+	ArrayList<Integer> arrayList = new ArrayList<>();
+	public int getMinimumDifference(TreeNode root) {
+		inorder(root);
+		int min = arrayList.get(1)-arrayList.get(0);
+		for (int i = 1; i < arrayList.size()-1; ++i) {
+			if ((arrayList.get(i+1)-arrayList.get(i)) < min) {
+				min = (arrayList.get(i+1)-arrayList.get(i));
 			}
 		}
-		while (current1 != null) {
-			if (current1 == current2) return current1;
-			current1 = current1.next;
-			current2 = current2.next;
+		return min;
+	}
+
+	void inorder (TreeNode root) {
+		if (root != null) {
+			inorder(root.left);
+			arrayList.add(root.val);
+			inorder(root.right);
 		}
-		return null;
 	}
 }
