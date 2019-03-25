@@ -1,13 +1,13 @@
+import java.util.Arrays;
+
 class Solution {
-	int sum = 0;
-	public int rangeSumBST(TreeNode root, int L, int R) {
-		if (root != null) {
-			rangeSumBST(root.left, L, R);
-			if (root.val >= L && root.val <= R) {
-				sum += root.val;
+	public boolean containsDuplicate(int[] nums) {
+		Arrays.sort(nums);
+		for (int i = 1; i < nums.length; ++i) {
+			if (nums[i] == nums[i-1]) {
+				return true;
 			}
-			rangeSumBST(root.right, L, R);
 		}
-		return sum;
+		return false;
 	}
 }
