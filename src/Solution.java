@@ -13,16 +13,7 @@ class Solution {
 		treeTraversal(root1, leaves1);
 		treeTraversal(root2, leaves2);
 
-		if (leaves1.size() == leaves2.size()) {
-			for (int i = 0; i < leaves2.size(); ++i) {
-				if (leaves2.get(i) != leaves1.get(i)) {
-					return false;
-				}
-			}
-			return true;
-		} else {
-			return false;
-		}
+		return leaves1.equals(leaves2);
 	}
 
 	void treeTraversal (TreeNode root, ArrayList arrayList) {
