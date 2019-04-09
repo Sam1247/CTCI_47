@@ -1,40 +1,22 @@
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 class Solution {
 
-	Queue<Node> q = new LinkedList<>();
-
-
-	List<List<Integer>> lists = new LinkedList<>();
+	List<List<Integer>> lists;
 
 	public List<List<Integer>> levelOrder(Node root) {
-		if (root == null) {
-			return new LinkedList<>();
-		}
-		q.add(root);
-		List<Integer> list1 = new LinkedList();
-		list1.add(root.val);
-		lists.add(list1);
-		int temp = 1;
-
-		while (!q.isEmpty()) {
-			Node s = q.poll();
-			temp--;
-			for (Node node: s.children) {
-				q.add(node);
-			}
-
-			if (temp == 0 && !q.isEmpty()) {
-				List<Integer> list = new LinkedList();
-				for (Node node: q) {
-					list.add(node.val);
-				}
-				lists.add(list);
-				temp = q.size();
-			}
-		}
+		lists = new LinkedList<>();
+		handler(root, 0);
 		return lists;
+	}
+
+	public void handler (Node root, int level) {
+		if (root == null) return;
+		if (level >= lists.size()) lists.add(new LinkedList<>());
+		lists.get(level).add(root.val);
+		for (Node node: root.children) {
+			handler(node, level+1);
+		}
 	}
 }
