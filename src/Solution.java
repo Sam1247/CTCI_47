@@ -1,27 +1,34 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 class Solution {
-	ArrayList<Integer> leaves1;
-	ArrayList<Integer> leaves2;
-	public boolean leafSimilar(TreeNode root1, TreeNode root2) {
-
-		if (root1 == null || root2 == null) return false;
-
-		leaves1 = new ArrayList<>();
-		leaves2 = new ArrayList<>();
-
-		treeTraversal(root1, leaves1);
-		treeTraversal(root2, leaves2);
-
-		return leaves1.equals(leaves2);
+	boolean cyclic = true;
+	ArrayList<Integer>[] adj;
+	Set<Integer> set = new HashSet<Integer>();
+	public boolean canFinish(int numCourses, int[][] prerequisites) {
+		adj = new ArrayList[numCourses];
+		for (int i = 0; i < numCourses; i++) {
+			adj[i] = new ArrayList<>();
+		}
+		for (int i = 0; i < prerequisites.length; ++i) {
+			adj[prerequisites[i][0]].add(prerequisites[i][1]);
+		}
+		for (int i = 0; i < numCourses; ++i) {
+			DFS(i);
+		}
+		return cyclic;
 	}
 
-	void treeTraversal (TreeNode root, ArrayList arrayList) {
-		if (root == null) return;
-		treeTraversal(root.left, arrayList);
-		if (root.left == null && root.right == null) {
-			arrayList.add(root.val);
+	public void DFS (int s) {
+		set.add(s);
+		for (int u: adj[s]) {
+			if (set.contains(u)) {
+				cyclic = false;
+				return;
+			}
+			DFS(u);
 		}
-		treeTraversal(root.right, arrayList);
+		set.remove(s);
 	}
 }
