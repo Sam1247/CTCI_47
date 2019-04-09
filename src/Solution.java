@@ -1,41 +1,39 @@
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 class Solution {
-	boolean cyclic = true;
-	ArrayList<Integer>[] adj;
-	Set<Integer> set = new HashSet<Integer>();
-	boolean [] isVisited;
 	public boolean canFinish(int numCourses, int[][] prerequisites) {
-		adj = new ArrayList[numCourses];
-		isVisited = new boolean[numCourses];
-		for (int i = 0; i < numCourses; i++) {
-			adj[i] = new ArrayList<>();
+
+		List<Integer>[] graph= new ArrayList[numCourses];
+
+		for(int i=0;i<numCourses;i++){
+			graph[i]= new ArrayList<>();
 		}
-		for (int i = 0; i < prerequisites.length; ++i) {
-			adj[prerequisites[i][0]].add(prerequisites[i][1]);
+		for(int[] dep: prerequisites){
+			graph[dep[0]].add(dep[1]);
 		}
-		for (int i = 0; i < numCourses; ++i) {
-			if (!isVisited[i])
-				DFS(i);
-			if (!cyclic) {
-				return false;
+
+		int[] visited= new int[numCourses];
+		for(int i=0;i<numCourses;i++){
+			if(visited[i]==0){
+
+				if( hasCycle(graph, i ,visited)) return false;
 			}
 		}
-		return cyclic;
+
+		return true;
 	}
 
-	public void DFS (int s) {
-		set.add(s);
-		isVisited[s] = true;
-		for (int u: adj[s]) {
-			if (set.contains(u)) {
-				cyclic = false;
-				return;
+	boolean hasCycle( List<Integer>[] graph,int node, int[] visited){
+		if(visited[node]==1) return true;
+
+		visited[node]=1;
+		for(int i=0;i<graph[node].size();i++){
+			if(visited[graph[node].get(i)]!=2){
+				if(hasCycle(graph, graph[node].get(i),visited)) return true;
 			}
-			DFS(u);
 		}
-		set.remove(s);
+		visited[node]=2;
+		return false;
 	}
 }
