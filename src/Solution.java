@@ -1,10 +1,12 @@
 class Solution {
-	public int maxProfit(int[] prices) {
-		int maxprofit = 0;
-		for (int i = 1; i < prices.length; i++) {
-			if (prices[i] > prices[i - 1])
-				maxprofit += prices[i] - prices[i - 1];
+	public void rotate(int[] nums, int k) {
+		int [] temp = new int[nums.length];
+		for (int i = 0; i < nums.length; ++i) {
+			int newIndx = (i+k)%nums.length;
+			temp[newIndx] = nums[i];
 		}
-		return maxprofit;
+		for (int i = 0; i < nums.length; ++i) {
+			nums[i] = temp[i];
+		}
 	}
 }
