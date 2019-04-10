@@ -1,15 +1,23 @@
+import java.util.ArrayList;
+
 class Solution {
-	int len = 0;
-	public int maxDepth(TreeNode root) {
-		if (root == null) return 0;
-		DFS(root, 1);
-		return len;
+	ArrayList<Integer> arrayList;
+	public boolean isValidBST(TreeNode root) {
+		arrayList = new ArrayList<>();
+		inOrder(root);
+		for (int i = 1; i < arrayList.size(); i++) {
+			if (arrayList.get(i) < arrayList.get(i-1)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
-	void DFS (TreeNode root, int dep) {
+	void inOrder (TreeNode root) {
 		if (root == null) return;
-		if (len < dep) len = dep;
-		DFS(root.left, dep+1);
-		DFS(root.right, dep+1);
+		inOrder(root.left);
+		arrayList.add(root.val);
+		inOrder(root.right);
 	}
+
 }
