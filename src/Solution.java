@@ -1,16 +1,22 @@
 class Solution {
-	public int removeDuplicates(int[] nums) {
-		int p1 = 0;
-		int p2 = 1;
-		while (p2 < nums.length) {
-			if (nums[p2] == nums[p1]) {
-				p2++;
+	public int maxProfit(int[] prices) {
+		int sum = 0;
+		int i = 0;
+		int j = 1;
+		while (j < prices.length) {
+			//
+			if (prices[i] > prices[j]) {
+				i = j;
+				j++;
 			} else {
-				p1++;
-				nums[p1] = nums[p2];
-				p2++;
+				while (j < prices.length && prices[j-1] < prices[j]) {
+					j++;
+				}
+				sum += prices[j-1] - prices[i];
+				i = j;
+				j++;
 			}
 		}
-		return p1+1;
+		return sum;
 	}
 }
