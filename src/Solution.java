@@ -1,23 +1,23 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 class Solution {
-	ArrayList<Integer> arrayList;
-	public boolean isValidBST(TreeNode root) {
-		arrayList = new ArrayList<>();
-		inOrder(root);
-		for (int i = 1; i < arrayList.size(); i++) {
-			if (arrayList.get(i) < arrayList.get(i-1)) {
-				return false;
-			}
-		}
-		return true;
+	List<List<Integer>> lists;
+	public List<List<Integer>> levelOrderBottom(TreeNode root) {
+		lists = new ArrayList<>();
+		traversal (root, 0);
+		Collections.reverse(lists);
+		return lists;
 	}
 
-	void inOrder (TreeNode root) {
+	void traversal (TreeNode root, int level) {
 		if (root == null) return;
-		inOrder(root.left);
-		arrayList.add(root.val);
-		inOrder(root.right);
+		if (lists.size() < level) {
+			lists.add(new ArrayList<>());
+		}
+		traversal(root.left, level+1);
+		traversal(root.right, level+1);
+		lists.get(level).add(root.val);
 	}
-
 }
