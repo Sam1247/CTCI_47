@@ -1,12 +1,9 @@
 class Solution {
-	public void rotate(int[] nums, int k) {
-		int [] temp = new int[nums.length];
-		for (int i = 0; i < nums.length; ++i) {
-			int newIndx = (i+k)%nums.length;
-			temp[newIndx] = nums[i];
+	public int singleNumber(int[] nums) {
+		int ans = 0;
+		for (int n: nums) {
+			ans ^= n;
 		}
-		for (int i = 0; i < nums.length; ++i) {
-			nums[i] = temp[i];
-		}
+		return ans;
 	}
 }
